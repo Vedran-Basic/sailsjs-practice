@@ -14,8 +14,7 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
     title: {
       type: 'string',
-      required:true,
-
+      required:true
     },
 
     // e.g. 3.26
@@ -25,6 +24,10 @@ module.exports = {
       defaultsTo: 'Empty post - no post body given'
     },
 
+    userID:{
+      type: 'number',
+      required: true
+    },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
