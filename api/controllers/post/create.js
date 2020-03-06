@@ -37,20 +37,29 @@ module.exports = {
 
 
   exits: {
-
+    success:{
+      responseType:'ok'
+    }
   },
 
 
-  fn: async function (inputs) {
+  fn: async function (inputs, exits) {
     /* probaj print this ili object.keys(this) da vidis sto ima u wrapu ove funkcije*/
     // All done.
-    const {title, body, userID} = inputs;
-    const newPost = await Post.create((Object.assign({
-      title,
-      body,
-      userID
-    }))).fetch()
-    return newPost;
+    const {title, body, userID, tags} = inputs;
+    // const newPost = await Post.create({
+    //   title,
+    //   body,
+    //   userID,
+    //   tags
+    // }).fetch()
+
+    const tagsMap = tags.forEach(tag =>{
+      const tagMapping = Tag.create({
+        tag, postID:Post.id//koji nastane nakon creatanja posta
+      })
+    })
+    return exits.success();
 
   }
 
