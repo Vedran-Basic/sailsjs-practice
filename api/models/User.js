@@ -19,13 +19,12 @@ module.exports = {
       isEmail: true,
       unique: true,
       required: true,
-      columnType: 'FLOAT'
     },
 
     // e.g. "cm"
     password: {
       type: 'string',
-      defaultsTo: 'cm'
+      required:true
     },
 
   }

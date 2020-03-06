@@ -18,8 +18,8 @@ module.exports = {
 
 
   fn: async function () {
-    const data = await Post.getDatastore().sendNativeQuery('SELECT * FROM post')
-    // All done.
+    const postID = this.req.params.id
+    const data = await Post.getDatastore().sendNativeQuery(`SELECT * FROM post WHERE id = ${postID}`)
     return data.rows;
 
   }

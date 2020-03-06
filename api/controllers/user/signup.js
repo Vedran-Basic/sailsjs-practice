@@ -19,34 +19,62 @@ module.exports = {
       isEmail: true,
       unique: true,
       required: true,
-      columnType: 'FLOAT',
       description: 'users email.'
     },
     password: {
       type: 'string',
-      password: true,
-      defaultsTo: 'cm'
+      required: true
     },
   },
   exits: {
-
+    success: {
+      responseType: 'ok'
+    },
+    emailAlreadyInUse: {
+      responseType: 'badRequest',
+      description: 'Email is used!'
+    },
+    nekierror:{
+      responseType: 'badRequest',
+      description: 'Email is used!'
+    },
+    adapterError:{
+      responseType: 'badRequest',
+      description: 'Adapter error!'
+    }
   },
 
 
-  fn: async function (inputs) {
-    const { email, password, username} = inputs
-    const user = User.find({email:email}).fetch
-    if(user){
-      console.log(user)
-      return "User already registered!"
-    }
-    const newUser = await User.create((Object.assign(
-      {
-        username,
-        email,
-        password})))
-      .fetch()
+  fn: async function (inputs, exits) {
+
+
+    const {email, password, username} = inputs;
+    const user = await User.find({email: email});
+    // if(user){
+    //   console.log(user)
+    //   return  exits.success("User already registered!")
+    // }
+    let newUser;
+    try {
+      newUser = await User.create(
+        {
+          username,
+          email,
+          password
+        })
+        .fetch();
+    } catch (e) {
+      if (e.name === 'AdapterError'){
+        console.log('adapter error!! ')
+        return exits.adapterError()
+      }
+
+    if(e.code === 'E_UNIQUE') {
+    return exits.emailAlreadyInUse('dadadasd');
+      }
+
+  }
     // All done.
-    return newUser
+    return exits.success(newUser);
   }
 };

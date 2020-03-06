@@ -9,11 +9,16 @@
  */
 
 module.exports.routes = {
-  'POST /posts/create': { action: 'post/create' },
-  'DELETE /posts/delete': { action: 'post/delete' },
-  'GET /posts/get': { action: 'post/get' },
-  'PATCH /posts/update': { action: 'post/update' },
+  'GET /posts/get': { action: 'post/getallposts' },
 
-  'POST /user/signup': { action: 'user/signup' }
+  'POST /post/create': { action: 'post/create' },
+  'DELETE /post/delete': { action: 'post/delete' },
+  'PATCH /post/update': { action: 'post/update' },
+  'GET /post/get/:id': { action: 'post/get' },
+
+
+  'POST /user/signup': { action: 'user/signup' },
+  'POST /user/login': { action: 'user/login' }
+
 
 };

@@ -27,8 +27,11 @@ module.exports = {
         required: true,
         type: 'number',
         description: 'The users full name.',
+      },
+      tags:{
+        type:'ref',
+        description: 'tags',
       }
-
     },
     /* inputs stavljas ono sto primas iz requesta */
 
