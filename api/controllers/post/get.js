@@ -8,7 +8,6 @@ module.exports = {
 
 
   inputs: {
-
   },
 
 
@@ -18,10 +17,9 @@ module.exports = {
 
 
   fn: async function () {
+    console.log()
     const postID = this.req.params.id
-    const data = await Post.getDatastore().sendNativeQuery(`SELECT * FROM post WHERE id = ${postID}`)
-    return data.rows;
-
+    return Post.findOne({id: postID}).populate('tags');
   }
 
 

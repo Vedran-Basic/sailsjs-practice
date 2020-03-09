@@ -44,21 +44,14 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
-    /* probaj print this ili object.keys(this) da vidis sto ima u wrapu ove funkcije*/
-    // All done.
     const {title, body, userID, tags} = inputs;
-    // const newPost = await Post.create({
-    //   title,
-    //   body,
-    //   userID,
-    //   tags
-    // }).fetch()
-
-    const tagsMap = tags.forEach(tag =>{
-      const tagMapping = Tag.create({
-        tag, postID:Post.id//koji nastane nakon creatanja posta
-      })
-    })
+    const {id} = await Post.create({
+      title,
+      body,
+      userID
+    }).fetch()
+    console.log(tags)
+    const tagovi = await Tag.createEach(tags.map(tag => ({...{name: tag, post: id}})));
     return exits.success();
 
   }

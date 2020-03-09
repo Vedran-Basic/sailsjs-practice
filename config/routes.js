@@ -10,6 +10,8 @@
 
 module.exports.routes = {
   'GET /posts/get': { action: 'post/getallposts' },
+  'GET /posts/search': { action: 'post/search' },
+
 
   'POST /post/create': { action: 'post/create' },
   'DELETE /post/delete': { action: 'post/delete' },

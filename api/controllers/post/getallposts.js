@@ -14,7 +14,8 @@ module.exports = {
 
 
   fn: async function () {
-      const data = await Post.getDatastore().sendNativeQuery(`SELECT * FROM post`)
-      return data.rows;
+
+
+    return await Post.find().populate('tags')
   }
 };

@@ -11,12 +11,20 @@ module.exports = {
     name:{
       type:'string'
     },
-    postID:{
-      type:'number',
-      required:true
+    post:{
+      model:'post'
     }
 
   },
+  customToJSON: function() {
+    return _.omit(this, ['createdAt', 'updatedAt'])
+  },
+  beforeCreate: function (valuesToSet, proceed) {
+    if(!valuesToSet.name.charAt(0).includes('#')){
+      valuesToSet.name = '#' + valuesToSet.name
+    }
+    return proceed();
+  }
 
 };
 
