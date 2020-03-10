@@ -45,22 +45,35 @@ module.exports = {
     if(inputs.limit) where.limit = inputs.limit
     if(inputs.sort) where.sort = inputs.sort
 
+
+    //Function create Tag array : / {"name":{"contains":"_ṭag[0]"}},{"name":{"contains":"_tag[1]"}...}
+    const createTagArray = (array) =>{
+      let objectArray = []
+      array.forEach ( element => {
+        objectArray.push({name:{contains:element}})
+      })
+      return objectArray
+    }
+
+    //Tags split
     let _tags = []
     const delimiter = '_'
     if(inputs.tag) {
        _tags = inputs.tag.split(delimiter)
-      _tags = _tags.map( tag => {
-        return '#' + tag
-      })
-      console.log(_tags);
-    }
-    if(inputs.searchFor ==='any'){
-      return exits.success(await Tag.find({name:_tags}).populate('post'))//
     }
 
-    if(inputs.searchFor ==='exact'){
-      return exits.success('exact')
+    if(_tags.length === 1){
+      where.name = {contains: _tags[0]}
+    } else {
+      _tags = createTagArray(_tags)
+      where.or = _tags
     }
+
+
+    if(inputs.searchFor ==='any'){
+      return exits.success(await Tag.find(where).populate('post'))
+    }
+
 
 
 
@@ -68,16 +81,17 @@ module.exports = {
 
     return exits.success(await Tag.find(where).populate('post'))
 
-    const posts = await Post.find().populate('tags')
-    let matchingPosts = []
-    posts.forEach( post => {
-      post.tags.forEach( tag => {
-        if(tag.name.includes(inputs.tag)){
-          matchingPosts.push(post)
-        }
-      })
-    })
-    return exits.success(matchingPosts)
+    //na postovima search
+    // const posts = await Post.find().populate('tags')
+    // let matchingPosts = []
+    // posts.forEach( post => {
+    //   post.tags.forEach( tag => {
+    //     if(tag.name.includes(inputs.tag)){
+    //       matchingPosts.push(post)
+    //     }
+    //   })
+    // })
+    // return exits.success(matchingPosts)
 
   }
 
