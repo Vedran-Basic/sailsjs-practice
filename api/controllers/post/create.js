@@ -50,7 +50,6 @@ module.exports = {
       body,
       userID
     }).fetch()
-    console.log(tags)
     const tagovi = await Tag.createEach(tags.map(tag => ({...{name: tag, post: id}})));
     return exits.success();
 
